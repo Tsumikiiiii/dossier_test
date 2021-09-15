@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medical.dossier.dao.DossierListDao">
+    <select id="queryDossier" resultType="com.medical.dossier.entity.DossierList">
+        select doctor_id,patient_id,symptom,treatment from dossier_list
+    </select>
+    <select id="queryDossierByDoctorId" resultType="com.medical.dossier.entity.DossierList">
+        select doctor_id,patient_id,symptom,treatment from dossier_list
+        where doctor_id=#{doctorId}
+    </select>
+    <select id="queryDossierByPatientId" resultType="com.medical.dossier.entity.DossierList">
+         select doctor_id,patient_id,symptom,treatment from dossier_list
+        where patient_id=#{patientId}
+    </select>
+    <insert id="insertDossier" parameterType="com.medical.dossier.entity.DossierList">
+        insert into dossier_list(doctor_id,patient_id,symptom,treatment)
+        values(#{doctorId},#{patientId},#{symptom},#{treatment})
+    </insert>
+    <delete id="deleteDossier" parameterType="com.medical.dossier.Dto.DossierListDto">
+         delete from dossier_list
+         where doctor_id=#{doctorId} and patient_id=#{patientId}
+    </delete>
+    <update id="updateDossier" parameterType="com.medical.dossier.entity.DossierList">
+         update dossier_list
+         <set>
+             <if test="symptom!=null">symptom=#{symptom},</if>
+             <if test="treatment!=null">treatment=#{treatment}</if>
+         </set>
+         where doctor_id=#{doctorId} and patient_id=#{patientId}
+    </update>
+
+    <insert id="insertD" parameterType="com.medical.dossier.entity.DossierListt">
+        insert into dossier_list(doctor_id,patient_id,symptom,treatment)
+        values(#{doctorId},#{patientId},#{symptom},#{treatment})
+    </insert>
+
+    <update id="updateD" parameterType="com.medical.dossier.entity.DossierListt">
+        update dossier_list
+        <set>
+            <if test="symptom!=null">symptom=#{symptom},</if>
+            <if test="treatment!=null">treatment=#{treatment}</if>
+        </set>
+        where doctor_id=#{doctorId} and patient_id=#{patientId}
+    </update>
+
+</mapper>

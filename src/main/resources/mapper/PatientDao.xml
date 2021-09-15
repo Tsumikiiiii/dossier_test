@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medical.dossier.dao.PatientDao">
+    <select id="queryPatient" resultType="com.medical.dossier.entity.Patient">
+        select patient_id,name,age,tel_number from patient
+    </select>
+    <select id="queryPatientById" resultType="com.medical.dossier.entity.Patient">
+        select patient_id,name,age,tel_number from patient
+        where patient_id=#{patientId}
+    </select>
+    <insert id="insertPatient" parameterType="com.medical.dossier.Dto.PatientDto">
+        insert into patient(name,age,tel_number)
+        values(#{name},#{age},#{telNumber})
+    </insert>
+
+    <delete id="deletePatient" parameterType="java.lang.String">
+        delete from patient where patient_id=#{patientId}
+    </delete>
+
+    <update id="updatePatient" parameterType="com.medical.dossier.entity.Patient">
+        update patient
+        <set>
+            <if test="name!=null">name=#{name},</if>
+            <if test="age!=null">age=#{age},</if>
+            <if test="telNumber!=null">tel_number=#{telNumber}</if>
+        </set>
+        where patient_id=#{patientId}
+    </update>
+
+
+</mapper>

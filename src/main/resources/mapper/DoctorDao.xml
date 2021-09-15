@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medical.dossier.dao.DoctorDao">
+<select id="checkLogin" resultType="com.medical.dossier.Dto.DoctorDto">
+    select doctor_id,password from doctor
+    where doctor_id=#{doctorId} and password=#{password}
+</select>
+    <select id="showInformation" resultType="com.medical.dossier.Vo.DoctorVo">
+        select name,sex,tel_number,age,department,title from doctor
+        where doctor_id=#{doctorId}
+    </select>
+    <update id="updateInformation" parameterType="com.medical.dossier.entity.Doctor">
+        update doctor
+        <set>
+            <if test="password!=null">password=#{password},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="telNumber!=null">tel_number=#{telNumber},</if>
+            <if test="age!=null">age=#{age},</if>
+            <if test="department!=null">department=#{department},</if>
+            <if test="title!=null">title=#{title}</if>
+        </set>
+        where doctor_id=#{doctorId}
+    </update>
+</mapper>
